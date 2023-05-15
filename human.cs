@@ -203,6 +203,7 @@ public class human : MonoBehaviour
     }
 
     //================ FARMING STATE ==========
+    //never managed to fully implement farming, but the animations and state remain 
     void doFarming(){
         animator.SetBool("walking", false); 
         //animator.SetBool("digging", true); 
