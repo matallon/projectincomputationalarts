@@ -1,3 +1,7 @@
+
+//uses the new input system instead - this code is not used anymore 
+
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,4 +55,4 @@ public class thirdpersonmovement : MonoBehaviour
         }
     }
 }
- 
+*/ 
