@@ -89,7 +89,7 @@ public class human : MonoBehaviour
     // Update is called once per frame
     void Update(){
 
-          //================================================== switch the states 
+        //================================================== switch the states 
         switch(currentState)
         {
             case AgentState.Walking:
@@ -133,7 +133,6 @@ public class human : MonoBehaviour
             }
         }
         // =============================================
-        //see if the fire is out
     }
 
     //============== WALKING STATE========================
