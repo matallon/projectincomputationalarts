@@ -9,6 +9,11 @@ public class rabbit : MonoBehaviour
     public GameObject rabbitObject; 
     public float reachPoint; 
 
+    //for checking if its in the same spot
+    private float timeElapsed = 0.0f;
+    private float timeThreshold = 5.0f;
+    private Vector3 lastPosition;
+
     public float amountSpawned; 
 
     Vector3 navPosition; 
@@ -24,6 +29,9 @@ public class rabbit : MonoBehaviour
         
         //gives the agent an intial first position to go to 
         navPosition =  RandomNavmeshLocation(reachPoint);
+
+        lastPosition = transform.position;
+
     }
 
     // Update is called once per frame
@@ -36,8 +44,21 @@ public class rabbit : MonoBehaviour
         if(Vector3.Distance(rabbitObject.transform.position, navPosition) < amountSpawned){
             navPosition = RandomNavmeshLocation(reachPoint);
         }
-    }
 
+        if (Vector3.Distance(transform.position, lastPosition) < 5)
+        {
+            timeElapsed += Time.deltaTime;
+            if (timeElapsed >= timeThreshold)
+            {
+                navPosition = RandomNavmeshLocation(reachPoint);
+            }
+        }
+        else
+        {
+            timeElapsed = 0.0f;
+            lastPosition = transform.position;
+        }
+    }
 
     //finds a random position on the entire navmesh 
     //function sourced from Unity forums found here: https://answers.unity.com/questions/475066/how-to-get-a-random-point-on-navmesh.html 
