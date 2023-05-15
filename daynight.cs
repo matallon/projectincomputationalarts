@@ -6,12 +6,14 @@ using TMPro;
 
 public class daynight : MonoBehaviour
 {
+    //bool to turn on in case the piece is being played in the GO5 space and therefore needs the sound playing. 
     [SerializeField]
     private bool go5;
     private AudioSource cricketSounds;
     bool playing; 
 
-    //most of this code comes from this youtube tutorial: https://www.youtube.com/watch?v=L4t2c1_Szdk , however has been adapted and had aspects added to it eg the skybox and lighting controls, to fit my needs.
+    //most of this code comes from this youtube tutorial: https://www.youtube.com/watch?v=L4t2c1_Szdk , however has been adapted and had aspects added to it eg the skybox, lighting controls and addition of street lights
+    //to fit my needs.
 
     [SerializeField]
     private float timeMultiplier;  //how fast time passes 
@@ -69,7 +71,8 @@ public class daynight : MonoBehaviour
         cricketSounds = GetComponent<AudioSource>();
 
         currentTime = DateTime.Now.Date + TimeSpan.FromHours(startHour);
-
+        
+        //times are dictated in the unity inspector 
         sunriseTime = TimeSpan.FromHours(sunriseHour); 
         sunsetTime = TimeSpan.FromHours(sunsetHour); 
         cricketSounds.Play(); 
@@ -78,17 +81,17 @@ public class daynight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateTimeOfDay();
+        UpdateTimeOfDay(); //keep the time moving! 
         RotateSun(); 
         UpdateLightSettings();
-
+        
         if(currentTime.TimeOfDay == TimeSpan.FromHours(12) && go5){
             cricketSounds.Play(); 
         }
     }
 
     private void UpdateTimeOfDay(){ 
-        currentTime = currentTime.AddSeconds(Time.deltaTime * timeMultiplier);
+        currentTime = currentTime.AddSeconds(Time.deltaTime * timeMultiplier); //make the time go up 
 
         timeBefore = currentTime.ToString("HH.mm");
 
@@ -113,7 +116,8 @@ public class daynight : MonoBehaviour
             double percentage = timeSinceSunrise.TotalMinutes / sunriseToSunsetDuration.TotalMinutes;
 
             sunLightRotation = Mathf.Lerp(0,180, (float)percentage);
-
+            
+            //turn the streetlights off in the day 
             foreach(GameObject light in lights){
                 light.SetActive(false); 
             }
@@ -133,6 +137,7 @@ public class daynight : MonoBehaviour
                 light.SetActive(true); 
             }
         }
+        //rotate the sun!! 
         sunLight.transform.rotation = Quaternion.AngleAxis(sunLightRotation, Vector3.right);
     }
 
