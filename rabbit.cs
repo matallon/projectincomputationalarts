@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+//code for the rabbit nav agents, makes the rabbits run around to random positions upon the navmesh.
+//agents are instantiated in a different script. 
+
 public class rabbit : MonoBehaviour
 {
     public NavMeshAgent agent; 
@@ -44,7 +47,9 @@ public class rabbit : MonoBehaviour
         if(Vector3.Distance(rabbitObject.transform.position, navPosition) < amountSpawned){
             navPosition = RandomNavmeshLocation(reachPoint);
         }
-
+           
+        //checks if an agent has been stopped for longer than the time threshold
+        //ensures there aren't lots of rabbits stuck in place, and assigns them a new place to go.
         if (Vector3.Distance(transform.position, lastPosition) < 5)
         {
             timeElapsed += Time.deltaTime;
