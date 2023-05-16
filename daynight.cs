@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 using TMPro; 
 
+//script controlling the day and night cycle across the world 
+
 public class daynight : MonoBehaviour
 {
     //bool to turn on in case the piece is being played in the GO5 space and therefore needs the sound playing. 
