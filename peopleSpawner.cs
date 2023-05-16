@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//instantiates people onto the navmesh by pulling from the public array, which is filled in the inspector. 
+//fills with 4 different people prefabs. 
 public class peopleSpawner : MonoBehaviour
 {
     public GameObject[] people;
