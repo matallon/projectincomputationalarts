@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using System;
 
+//script controlling the movement and states of the human navmesh agents. 
+
 public class human : MonoBehaviour
 {
     NavMeshAgent agent; 
