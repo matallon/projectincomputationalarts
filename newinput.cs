@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class newInput : MonoBehaviour
 {
+
+    //accesses the new input component. 
     private thirdPersonActionAsset playerActionsAsset;
     private InputAction move;
     private InputAction jump; 
@@ -22,10 +24,11 @@ public class newInput : MonoBehaviour
 
     private bool goingDown;
     private bool goingUp; 
-
+    
     private void Awake()
     {
-       playerActionsAsset = new thirdPersonActionAsset(); 
+       //assigns variables as soon as the program awakes - prevents bugs, using just Start() here could cause issues. 
+       playerActionsAsset = new thirdPersonActionAsset();  
        height = new Vector3(0f,0f,0f);
 
         goingDown = false;
@@ -33,7 +36,8 @@ public class newInput : MonoBehaviour
     }
 
     private void OnEnable()
-    {
+    {   
+        //access all the separate parts of the input component
         move = playerActionsAsset.Player.Move;
         jump = playerActionsAsset.Player.Jump;
         down = playerActionsAsset.Player.Down;
@@ -41,15 +45,18 @@ public class newInput : MonoBehaviour
     }
 
     private void OnDisable() {
-        playerActionsAsset.Player.Disable();
+        playerActionsAsset.Player.Disable();   //destructor! 
     }
 
-    private void FixedUpdate() {
-    
+    private void FixedUpdate() { //again better to use this here instead of Update() to prevent bugs - as update can slow down if the frame rate drops meaning the movement would feel more janky
+        
+        //get input values 
         float horizontal = move.ReadValue<Vector2>().x;
         float vertical = move.ReadValue<Vector2>().y;
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-
+        
+        //move the PlayerController component based upon input
+        
         controller.Move(height * Time.deltaTime); 
         
         if(direction.magnitude >= 0.1f)
